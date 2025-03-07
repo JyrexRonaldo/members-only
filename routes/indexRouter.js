@@ -10,4 +10,6 @@ indexRouter
   .get(indexController.getSignUpForm)
   .post(indexController.addNewUser);
 
+  indexRouter.route("/join-the-club").get(indexController.getJoinMembersPage)
+
 module.exports = indexRouter;

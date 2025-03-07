@@ -1,5 +1,5 @@
 const db = require("../db/queries");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs")
 
 function getSignUpForm(req, res) {
   res.render("forms/sign-up-form");
@@ -12,7 +12,17 @@ async function addNewUser(req, res, next) {
   const member = false;
   const hashedPassword = await bcrypt.hash(password, 10);
   db.addNewUser(firstname, lastname, username, hashedPassword, member, admin);
-  res.redirect("/");
+  // passport.authenticate("local", {
+  //   successRedirect: "/yeah",
+  //   failureRedirect: "/log-in"
+  // })
+  // console.log(req.user)
+  // res.redirect("/");
 }
 
-module.exports = { getSignUpForm, addNewUser };
+async function getJoinMembersPage(req,res) {
+  res.render("pages/join-the-club")
+}
+
+
+module.exports = { getSignUpForm, addNewUser, getJoinMembersPage };
