@@ -31,9 +31,14 @@ async function updateMemberStatus(req, res) {
   }
 }
 
+function getLogInPage(req,res) {
+  res.render("forms/log-in-form")
+}
+
 module.exports = {
   getSignUpForm,
   addNewUser,
   getJoinMembersPage,
-  updateMemberStatus
+  updateMemberStatus,
+  getLogInPage
 };
