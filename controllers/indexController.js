@@ -1,5 +1,5 @@
 const db = require("../db/queries");
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
 
 function getSignUpForm(req, res) {
   res.render("forms/sign-up-form");
@@ -20,9 +20,20 @@ async function addNewUser(req, res, next) {
   // res.redirect("/");
 }
 
-async function getJoinMembersPage(req,res) {
-  res.render("pages/join-the-club")
+function getJoinMembersPage(req, res) {
+  res.render("pages/join-the-club");
 }
 
+async function updateMemberStatus(req, res) {
+  const { secretCode } = req.body;
+  if (secretCode === "Hello") {
+    await db.updateMemberStatus(req.user.id);
+  }
+}
 
-module.exports = { getSignUpForm, addNewUser, getJoinMembersPage };
+module.exports = {
+  getSignUpForm,
+  addNewUser,
+  getJoinMembersPage,
+  updateMemberStatus
+};

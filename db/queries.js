@@ -31,8 +31,13 @@ async function addNewUser(
   );
 }
 
+async function updateMemberStatus(memberId) {
+    await pool.query("UPDATE members SET is_member = TRUE WHERE id = $1", [id])
+}
+
 module.exports = {
   getUserByUserName,
   getUserByUserId,
-  addNewUser
+  addNewUser,
+  updateMemberStatus
 };
