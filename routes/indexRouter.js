@@ -1,9 +1,10 @@
 const { Router } = require("express");
-const indexRouter = Router()
+const indexRouter = Router();
+const indexController = require("../controllers/indexController");
 
+indexRouter.get("/", (req, res) => {
+  res.json("Hello memebers");
+});
+indexRouter.route("/sign-up").get(indexController.getSignUpForm).post();
 
-indexRouter.get("/" , (req,res) => {
-    res.json("Hello memebers")
-})
-
-module.exports = indexRouter
+module.exports = indexRouter;
