@@ -2,9 +2,7 @@ const { Router } = require("express");
 const indexRouter = Router();
 const indexController = require("../controllers/indexController");
 
-indexRouter.get("/", (req, res) => {
-  res.json("Hello memebers");
-});
+indexRouter.route("/").get(indexController.getHomePage);
 indexRouter
   .route("/sign-up")
   .get(indexController.getSignUpForm)
@@ -15,5 +13,5 @@ indexRouter
   .get(indexController.getJoinMembersPage)
   .post(indexController.updateMemberStatus);
 
-indexRouter.route("/log-in").get(indexController.getLogInPage)
+indexRouter.route("/log-in").get(indexController.getLogInPage);
 module.exports = indexRouter;

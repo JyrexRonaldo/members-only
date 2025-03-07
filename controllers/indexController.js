@@ -35,10 +35,15 @@ function getLogInPage(req,res) {
   res.render("forms/log-in-form")
 }
 
+function getHomePage(req,res) {
+  res.render("pages/home")
+}
+
 module.exports = {
   getSignUpForm,
   addNewUser,
   getJoinMembersPage,
   updateMemberStatus,
-  getLogInPage
+  getLogInPage,
+  getHomePage
 };
