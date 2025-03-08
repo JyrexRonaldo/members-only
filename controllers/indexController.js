@@ -32,10 +32,10 @@ function getLogInPage(req, res) {
   res.render("forms/log-in-form");
 }
 
-function getHomePage(req, res) {
+async function getHomePage(req, res) {
   if (req.isAuthenticated()) {
-    console.log(req.user)
-    res.render("pages/home");
+    const posts = await db.getAllPosts();
+    res.render("pages/home", { posts });
   } else {
     res.redirect("/log-in");
   }
@@ -57,10 +57,9 @@ function logOutUser(req, res, next) {
 
 async function addNewMessage(req, res) {
   const { messageTitle, message } = req.body;
-  const userId = req.user.id
-  console.log({ messageTitle, message, userId  })
-  db.addNewMessage(messageTitle, message, userId)
-  res.redirect("/")
+  const userId = req.user.id;
+  db.addNewMessage(messageTitle, message, userId);
+  res.redirect("/");
 }
 
 module.exports = {
@@ -72,5 +71,5 @@ module.exports = {
   getHomePage,
   authenticateUser,
   logOutUser,
-  addNewMessage
+  addNewMessage,
 };

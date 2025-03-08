@@ -57,10 +57,21 @@ async function addNewMessage(messageTitle, message, userId) {
   );
 }
 
+async function getAllPosts() {
+  const { rows } = await pool.query(
+    `SELECT t.title, t.text, m.firstname, m.lastname, t.added 
+    FROM members as m 
+    INNER JOIN member_messages AS mt ON m.id = mt.member_id 
+    INNER JOIN messages AS t ON mt.message_id = t.id;`
+  );
+  return rows;
+}
+
 module.exports = {
   getUserByUserName,
   getUserByUserId,
   addNewUser,
   updateMemberStatus,
   addNewMessage,
+  getAllPosts,
 };
