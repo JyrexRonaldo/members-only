@@ -33,7 +33,11 @@ function getLogInPage(req, res) {
 }
 
 function getHomePage(req, res) {
-  res.render("pages/home");
+  if (req.isAuthenticated()) {
+    res.render("pages/home");
+  } else {
+    res.redirect("/log-in")
+  }
 }
 
 const authenticateUser = passport.authenticate("local", {
@@ -48,6 +52,10 @@ function logOutUser(req, res, next) {
     }
     res.redirect("/log-in");
   });
+}
+
+function addNewMessage(req,res) {
+
 }
 
 module.exports = {
