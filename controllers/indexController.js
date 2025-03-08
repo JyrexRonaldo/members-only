@@ -1,5 +1,6 @@
 const db = require("../db/queries");
 const bcrypt = require("bcryptjs");
+const passport = require("../config/passport");
 
 function getSignUpForm(req, res) {
   res.render("forms/sign-up-form");
@@ -12,12 +13,7 @@ async function addNewUser(req, res, next) {
   const member = false;
   const hashedPassword = await bcrypt.hash(password, 10);
   db.addNewUser(firstname, lastname, username, hashedPassword, member, admin);
-  // passport.authenticate("local", {
-  //   successRedirect: "/yeah",
-  //   failureRedirect: "/log-in"
-  // })
-  // console.log(req.user)
-  // res.redirect("/");
+  next();
 }
 
 function getJoinMembersPage(req, res) {
@@ -29,14 +25,29 @@ async function updateMemberStatus(req, res) {
   if (secretCode === "Hello") {
     await db.updateMemberStatus(req.user.id);
   }
+  res.redirect("/")
 }
 
-function getLogInPage(req,res) {
-  res.render("forms/log-in-form")
+function getLogInPage(req, res) {
+  res.render("forms/log-in-form");
 }
 
-function getHomePage(req,res) {
-  res.render("pages/home")
+function getHomePage(req, res) {
+  res.render("pages/home");
+}
+
+const authenticateUser = passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/log-in",
+});
+
+function logOutUser(req, res, next) {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/log-in");
+  });
 }
 
 module.exports = {
@@ -45,5 +56,7 @@ module.exports = {
   getJoinMembersPage,
   updateMemberStatus,
   getLogInPage,
-  getHomePage
+  getHomePage,
+  authenticateUser,
+  logOutUser,
 };

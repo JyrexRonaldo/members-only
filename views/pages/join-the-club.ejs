@@ -10,10 +10,12 @@
 <body>
     <%- include("../partials/header") %>
         <div>
-            <p>Enter the Correct Password to Become a Member of the Cluuuub!</p>
-            <textarea name="secretCode" id="secretCode"></textarea>
-            <p>Clue: Just type "Hello" (without the quotes)</p>
-            <button>Join the Club</button>
+            <form action="/join-the-club" method="post">
+                <p>Enter the Correct Password to Become a Member of the Cluuuub!</p>
+                <textarea name="secretCode" id="secretCode"></textarea>
+                <p>Clue: Just type "Hello" (without the quotes)</p>
+                <button type="submit">Join the Club</button>
+            </form>
         </div>
 </body>
 
