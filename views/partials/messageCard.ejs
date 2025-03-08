@@ -1,7 +1,12 @@
 <div>
     <p><%= messageTitle %></p>
     <p><%= message %></p>
+    <%if (currentUser.is_member == true) {%>
     <p><%= author %></p>
     <p><%= date %></p>
-    <button type="button">Delete</button>
+    <%};%>
+
+    <%if (currentUser.is_admin == true) {%>
+        <button type="button">Delete</button>
+    <%};%>
 </div>
