@@ -22,7 +22,7 @@
 
     <div>
         <% posts.forEach(post => {%>
-            <%-include("../partials/messageCard", {messageTitle: post.title , message: post.text, author: `${post.firstname} ${post.lastname}`, date: post.added}) %> 
+            <%-include("../partials/messageCard", {messageTitle: post.title , message: post.text, author: `${post.firstname} ${post.lastname}`, date: post.added, messageId: post.id}) %> 
             <% }); %>
     </div>
 </body>
