@@ -2,7 +2,10 @@ const { Router } = require("express");
 const indexRouter = Router();
 const indexController = require("../controllers/indexController");
 
-indexRouter.route("/").get(indexController.getHomePage);
+indexRouter
+  .route("/")
+  .get(indexController.getHomePage)
+  .post(indexController.addNewMessage);
 indexRouter
   .route("/sign-up")
   .get(indexController.getSignUpForm)
@@ -17,6 +20,6 @@ indexRouter
   .route("/log-in")
   .get(indexController.getLogInPage)
   .post(indexController.authenticateUser);
-  indexRouter.get("/log-out", indexController.logOutUser)
+indexRouter.get("/log-out", indexController.logOutUser);
 
 module.exports = indexRouter;

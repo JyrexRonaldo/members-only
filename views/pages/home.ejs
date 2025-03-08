@@ -9,13 +9,13 @@
 
 <body>
     <%- include("../partials/header")%>
-    <form action="/">
+    <form action="/" method="post">
         <p>Create a Post</p>
         <div>
-            <input type="text" placeholder="Title">
+            <input name="messageTitle" type="text" placeholder="Title">
         </div>
         <div>
-            <textarea name="" id="" placeholder="Say something..."></textarea>
+            <textarea name="message"  placeholder="Say something..."></textarea>
         </div>
         <button>Post</button>
     </form>

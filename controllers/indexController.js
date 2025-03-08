@@ -25,7 +25,7 @@ async function updateMemberStatus(req, res) {
   if (secretCode === "Hello") {
     await db.updateMemberStatus(req.user.id);
   }
-  res.redirect("/")
+  res.redirect("/");
 }
 
 function getLogInPage(req, res) {
@@ -34,9 +34,10 @@ function getLogInPage(req, res) {
 
 function getHomePage(req, res) {
   if (req.isAuthenticated()) {
+    console.log(req.user)
     res.render("pages/home");
   } else {
-    res.redirect("/log-in")
+    res.redirect("/log-in");
   }
 }
 
@@ -54,8 +55,12 @@ function logOutUser(req, res, next) {
   });
 }
 
-function addNewMessage(req,res) {
-
+async function addNewMessage(req, res) {
+  const { messageTitle, message } = req.body;
+  const userId = req.user.id
+  console.log({ messageTitle, message, userId  })
+  db.addNewMessage(messageTitle, message, userId)
+  res.redirect("/")
 }
 
 module.exports = {
@@ -67,4 +72,5 @@ module.exports = {
   getHomePage,
   authenticateUser,
   logOutUser,
+  addNewMessage
 };
