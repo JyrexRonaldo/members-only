@@ -62,6 +62,12 @@ async function addNewMessage(req, res) {
   res.redirect("/");
 }
 
+async function deleteMessage(req,res) {
+  const messageId = req.params.messageId;
+  await db.deleteMessage(messageId);
+  res.redirect("/");
+}
+
 module.exports = {
   getSignUpForm,
   addNewUser,
@@ -72,4 +78,5 @@ module.exports = {
   authenticateUser,
   logOutUser,
   addNewMessage,
+  deleteMessage,
 };

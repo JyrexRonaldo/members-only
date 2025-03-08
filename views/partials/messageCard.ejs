@@ -7,6 +7,6 @@
     <%};%>
 
     <%if (currentUser.is_admin == true) {%>
-        <button type="button">Delete</button>
+        <form action="/<%= messageId %>/delete" method="get"><button type="submit">Delete</button></form>
     <%};%>
 </div>

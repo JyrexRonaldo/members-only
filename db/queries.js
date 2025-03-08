@@ -42,29 +42,33 @@ async function updateMemberStatus(memberId) {
 
 async function addNewMessage(messageTitle, message, userId) {
   await pool.query(
-    "INSERT INTO messages(title,text,added) VALUES ($1, $2,'NOW');",
+    "INSERT INTO posts(title,text,added) VALUES ($1, $2,'NOW');",
     [messageTitle, message]
   );
 
   const { rows } = await pool.query(
-    "SELECT messages_id_seq.last_value FROM messages_id_seq;"
+    "SELECT posts_id_seq.last_value FROM posts_id_seq;"
   );
 
   const newMessageId = +rows[0].last_value;
   await pool.query(
-    "INSERT INTO member_messages (member_id, message_id) VALUES ($1, $2);",
+    "INSERT INTO member_posts (member_id, post_id) VALUES ($1, $2);",
     [userId, newMessageId]
   );
 }
-
+//'p' represents message texts and 'm' represents members
 async function getAllPosts() {
   const { rows } = await pool.query(
-    `SELECT t.title, t.text, m.firstname, m.lastname, t.added 
+    `SELECT p.id, p.title, p.text, m.firstname, m.lastname, p.added 
     FROM members as m 
-    INNER JOIN member_messages AS mt ON m.id = mt.member_id 
-    INNER JOIN messages AS t ON mt.message_id = t.id;`
+    INNER JOIN member_posts AS mt ON m.id = mt.member_id 
+    INNER JOIN posts AS p ON mt.post_id = p.id;`
   );
   return rows;
+}
+
+async function deleteMessage(messageId) {
+  await pool.query("DELETE FROM posts WHERE id = $1", [messageId]);
 }
 
 module.exports = {
@@ -74,4 +78,5 @@ module.exports = {
   updateMemberStatus,
   addNewMessage,
   getAllPosts,
+  deleteMessage,
 };

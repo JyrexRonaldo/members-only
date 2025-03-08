@@ -21,5 +21,6 @@ indexRouter
   .get(indexController.getLogInPage)
   .post(indexController.authenticateUser);
 indexRouter.get("/log-out", indexController.logOutUser);
+indexRouter.get("/:messageId/delete", indexController.deleteMessage);
 
 module.exports = indexRouter;
